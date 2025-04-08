@@ -1,18 +1,37 @@
+<?php
+include("src/functions.php");
+
+$db=dbConnect();
+
+$hood=$_GET["hood"];
+$roomType=$_GET["roomType"];
+$guests=$_GET["guests"];
+
+var_dump($hood);
+var_dump($roomType);
+var_dump($guests);
+
+$results=getQuery($db, $hood, $roomType, $guests);
+
+var_dump($results);
+
+?>
+
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
+    <head>
+        <meta charset="utf-8">
 
 
-    <title>Fake Airbnb Results</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-    <!-- Bootstrap core CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-    <link href="css/style.css" rel="stylesheet">
-    <link rel="icon" href="images/house-heart-fill.svg">
-    <link rel="mask-icon" href="images/house-heart-fill.svg" color="#000000">   
-  </head>
-  <body>
+        <title>Fake Airbnb Results</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+        <!-- Bootstrap core CSS -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+        <link href="css/style.css" rel="stylesheet">
+        <link rel="icon" href="images/house-heart-fill.svg">
+        <link rel="mask-icon" href="images/house-heart-fill.svg" color="#000000">   
+        </head>
+    <body>
     
     <header>
         <div class="collapse bg-dark" id="navbarHeader">
@@ -50,32 +69,38 @@
 
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
 
-              <div class="col">
-                  <div class="card shadow-sm">
-                      <img src="https://a0.muscache.com/pictures/miso/Hosting-595680673819411804/original/a6e6fda5-2935-4e2e-ba34-2fc50bba5cf3.jpeg">
+                <div class="col">
+
+
+                    <?php
+                    //foreach()
+
+                    ?>
+                    <div class="card shadow-sm">
+                        <img src="https://a0.muscache.com/pictures/miso/Hosting-595680673819411804/original/a6e6fda5-2935-4e2e-ba34-2fc50bba5cf3.jpeg">
+
+                        <div class="card-body">
+                            <h5 class="card-title">1922 Craftsman Compound in Laurelhurst ~ Sleeps 12</h5>
+                            <p class="card-text">Kerns neighborhood</p>
+                            <p class="card-text">Entire home/apt</p>
+                        
+                            <p class="card-text">Accommodates 12</p>
               
-                      <div class="card-body">
-                          <h5 class="card-title">1922 Craftsman Compound in Laurelhurst ~ Sleeps 12</h5>
-                          <p class="card-text">Kerns neighborhood</p>
-                          <p class="card-text">Entire home/apt</p>
-                          
-                          <p class="card-text">Accommodates 12</p>
+                            <p class="card-text align-bottom">
+                            <i class="bi bi-star-fill"></i><span class=""> 5.00</span>
+                            </p>
               
-                          <p class="card-text align-bottom">
-                          <i class="bi bi-star-fill"></i><span class=""> 5.00</span>
-                          </p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="btn-group">
+                                    <button type="button" id="3301" class="btn btn-sm btn-outline-secondary viewListing" data-bs-toggle="modal" data-bs-target="#fakeAirbnbnModal">View</button>
+                                </div>
+                                <small class="text-muted">$960.00</small>
               
-                          <div class="d-flex justify-content-between align-items-center">
-                              <div class="btn-group">
-                                  <button type="button" id="3301" class="btn btn-sm btn-outline-secondary viewListing" data-bs-toggle="modal" data-bs-target="#fakeAirbnbnModal">View</button>
-                  
-                              </div>
-                              <small class="text-muted">$960.00</small>
-              
-                          </div>
-                      </div>
-                  </div><!--.card-->
-              </div><!--.col-->
+                            </div>
+                        </div>
+                    </div><!--.card-->
+
+                </div><!--.col-->
 
 
 
