@@ -1,12 +1,8 @@
 <?php
 include("src/functions.php");
 
-$db=dbConnect();
-
 $listings=getListings($db);
-
-$hoods=getNeighborhoods($db);
-
+$neighborhoods=getNeighborhoods($db);
 $roomTypes=getRoomTypes($db);
 
 ?>
@@ -70,14 +66,14 @@ $roomTypes=getRoomTypes($db);
 
                             
                             <div class="col-auto">
-                                <select class="form-select" aria-label="Default select example" name="hood">
-                                    <option selected>Open this select menu</option>
+                                <select class="form-select" aria-label="Default select example" name="neighborhood">
+                                    <option selected>Any</option>
                                     <?php
-                                        foreach($hoods as $hood) {
-                                            $neighborhood = $hood["neighborhood"];
-                                            $id = $hood["id"];
-                                            echo "<option value='$id'>$neighborhood</option>";
-                                        }
+                                    foreach($neighborhoods as $neighborhood) {
+                                        $hood = $neighborhood["neighborhood"];
+                                        $id = $neighborhood["id"];
+                                        echo "<option value='$id'>$hood</option>";
+                                    }
                                     ?>
                                 </select>
                             </div>
@@ -92,13 +88,13 @@ $roomTypes=getRoomTypes($db);
 
                             <div class="col-auto">
                                 <select class="form-select" aria-label="Default select example" name="roomType">
-                                    <option selected>Open this select menu</option>
+                                    <option selected>Any</option>
                                     <?php
-                                        foreach($roomTypes as $roomType) {
-                                            $room = $roomType["type"];
-                                            $id = $roomType["id"];
-                                            echo "<option value='$id'>$room</option>";
-                                        }
+                                    foreach($roomTypes as $roomType) {
+                                        $room = $roomType["type"];
+                                        $id = $roomType["id"];
+                                        echo "<option value='$id'>$room</option>";
+                                    }
                                     ?>
                                 </select>
                             </div>
@@ -113,11 +109,11 @@ $roomTypes=getRoomTypes($db);
 
                             <div class="col-auto">
                                 <select class="form-select" aria-label="Default select example" name="guests">
-                                    <option selected>Open this select menu</option>
+                                    <option selected>Any</option>
                                     <?php
-                                        foreach(range(1,10) as $i) {
-                                            echo "<option value='$i'>$i</option>";
-                                        }
+                                    foreach(range(1,10) as $i) {
+                                        echo "<option value='$i'>$i</option>";
+                                    }
                                     ?>
                                 </select>
                             </div>

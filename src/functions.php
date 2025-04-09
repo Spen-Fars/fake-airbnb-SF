@@ -1,16 +1,15 @@
 <?php
-
 /* Add your functions here */
 
 
-function dbConnect(){
-    /*** connection credentials *******/
+function dbConnect() {
+    /******* connection credentials *******/
     $servername = "mysqlServer";
     $username = "fakeAirbnbUser";
     $password = "apples11Million";
     $database = "fakeAirbnb";
     $dbport = 3306;
-    /****** connect to database **************/
+    /******* connect to database *******/
 
     try {
         $db = new PDO("mysql:host=$servername; dbname=$database; charset=utf8mb4; port=$dbport", $username, $password);
@@ -23,7 +22,7 @@ function dbConnect(){
 
 
 /* query with no SQL arguments */
-function getListings($db){
+function getListings($db) {
     try {
         $stmt = $db->prepare("select * from listings");   
         $stmt->execute();
@@ -37,9 +36,10 @@ function getListings($db){
 }
 
 
-function getNeighborhoods($db){
+/* query for neighborhoods */
+function getNeighborhoods($db) {
     try {
-        $stmt = $db->prepare("select * from neighborhoods");   
+        $stmt = $db->prepare("select * from neighborhoods order by neighborhood");   
         $stmt->execute();
         $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $rows;
@@ -51,8 +51,8 @@ function getNeighborhoods($db){
 }
 
 
-/* query with no SQL arguments */
-function getRoomTypes($db){
+/* query for room types */
+function getRoomTypes($db) {
     try {
         $stmt = $db->prepare("select * from roomTypes");   
         $stmt->execute();
@@ -66,16 +66,17 @@ function getRoomTypes($db){
 }
 
 
-function getQuery($db, $hood, $roomType, $guests) {
+/* query for user designated SQL arguments */
+function getQuery($db, $neighborhoodId, $roomTypeId, $accommodates) {
     try {
     $stmt = $db->prepare("  
-                        select * 
+                        select pictureUrl, name, accommodates, rating, listings.id, price, neighborhoods.neighborhood, roomTypes.type
                         from listings
                         join neighborhoods on neighborhoods.id=listings.neighborhoodId
                         join roomTypes on roomTypes.id=listings.roomTypeId
-                        where neighborhoods.id = ? and roomTypes.id = ? and listings.accomodates < ?
+                        where neighborhoods.id = ? and roomTypes.id = ? and listings.accommodates = ?
                         ");
-    $data=array($hood, $roomType, $guests);
+    $data=array($neighborhoodId, $roomTypeId, $accommodates);
     $stmt->execute($data);
     $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
     return $rows;
@@ -85,4 +86,60 @@ function getQuery($db, $hood, $roomType, $guests) {
     }
 }
 
+
+function getNeighborhoodNameFromId($db, $id) {
+    try {
+        $stmt = $db->prepare("  
+                            select neighborhood
+                            from neighborhoods
+                            where neighborhoods.id = ?
+                            ");
+        $data=array($id);
+        $stmt->execute($data);
+        $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $rows;
+
+    } catch (Exception $e) {
+        echo $e;
+    }
+}
+
+
+function getRoomTypeFromId($db, $id) {
+    try {
+        $stmt = $db->prepare("  
+                            select type
+                            from roomTypes
+                            where roomTypes.id = ?
+                            ");
+        $data=array($id);
+        $stmt->execute($data);
+        $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $rows;
+
+    } catch (Exception $e) {
+        echo $e;
+    }
+}
+
+
+function getHostNameFromId($db, $id) {
+    try {
+        $stmt = $db->prepare("  
+                            select hostName
+                            from hosts
+                            where hosts.id = ?
+                            ");
+        $data=array($id);
+        $stmt->execute($data);
+        $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $rows;
+
+    } catch (Exception $e) {
+        echo $e;
+    }
+}
+
+
+$db=dbConnect();
 ?>
